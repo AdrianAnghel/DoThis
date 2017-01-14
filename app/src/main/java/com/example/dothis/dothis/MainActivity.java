@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         mHelper = new TaskDbHelper(this);
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE,TaskContract.TaskEntry.DUE_DATE},
                 null, null, null, null, null);
         while(cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
@@ -102,12 +102,6 @@ public class MainActivity extends AppCompatActivity {
                                 updateUI();
                             }
                         })
-//                        .setPositiveButton("Set date", new DatePickerDialog.OnClickListener(){
-//                            @Override
-//                            public void onClick(DialogInterface dialog, int which) {
-//
-//                            }
-//                        })
                         .setNegativeButton("Cancel", null)
                         .create();
                 dialog.show();
@@ -122,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<String> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
-                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE},
+                new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.DUE_DATE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
             int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);

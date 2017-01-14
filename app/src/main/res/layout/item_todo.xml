@@ -4,23 +4,39 @@
     android:layout_height="match_parent"
     android:layout_gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/task_title"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:text="Hello"
-        android:focusable="false"
-        android:textSize="20sp" />
+        android:orientation="horizontal" >
 
-    <Button
-        android:id="@+id/task_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:onClick="deleteTask"
-        android:text="Done" />
+        <TextView
+            android:id="@+id/task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="Hello"
+            android:focusable="false"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/due_date"
+            android:layout_below="@+id/task_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hello1"
+            android:focusable="false"
+            android:textSize="10sp" />
+
+        <Button
+            android:id="@+id/task_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:onClick="deleteTask"
+            android:text="Done" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

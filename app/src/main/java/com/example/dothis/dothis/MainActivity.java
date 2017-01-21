@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.dothis.dothis.Adapter.TaskInformationAdapter;
+import com.example.dothis.dothis.BaseClases.TaskInformations;
 import com.example.dothis.dothis.db.TaskContract;
 import com.example.dothis.dothis.db.TaskDbHelper;
 
@@ -28,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     private TaskDbHelper mHelper;
     private ListView mTaskListView;
-    private ArrayAdapter<String> mAdapter;
+    private ArrayAdapter<TaskInformations> taskInfoAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,26 +115,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUI() {
-        ArrayList<String> taskList = new ArrayList<>();
+        ArrayList<TaskInformations> taskList = new ArrayList<>();
         SQLiteDatabase db = mHelper.getReadableDatabase();
         Cursor cursor = db.query(TaskContract.TaskEntry.TABLE,
                 new String[]{TaskContract.TaskEntry._ID, TaskContract.TaskEntry.COL_TASK_TITLE, TaskContract.TaskEntry.DUE_DATE},
                 null, null, null, null, null);
         while (cursor.moveToNext()) {
-            int idx = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
-            taskList.add(cursor.getString(idx));
+            int idx_TaskTitle = cursor.getColumnIndex(TaskContract.TaskEntry.COL_TASK_TITLE);
+            int idx_TaskDueDate = cursor.getColumnIndex(TaskContract.TaskEntry.DUE_DATE);
+            taskList.add(new TaskInformations(cursor.getString(idx_TaskTitle),cursor.getString(idx_TaskDueDate)));
         }
 
-        if (mAdapter == null) {
-            mAdapter = new ArrayAdapter<>(this,
+        if (taskInfoAdapter == null) {
+//            taskInfoAdapter = new ArrayAdapter<>(this,
+//                    R.layout.item_todo,
+//                    R.id.task_title,
+//                    taskList);
+            taskInfoAdapter = new TaskInformationAdapter(this,
                     R.layout.item_todo,
                     R.id.task_title,
                     taskList);
-            mTaskListView.setAdapter(mAdapter);
+            mTaskListView.setAdapter(taskInfoAdapter);
         } else {
-            mAdapter.clear();
-            mAdapter.addAll(taskList);
-            mAdapter.notifyDataSetChanged();
+            taskInfoAdapter.clear();
+            taskInfoAdapter.addAll(taskList);
+            taskInfoAdapter.notifyDataSetChanged();
         }
 
         cursor.close();

@@ -16,12 +16,15 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.dothis.dothis.Adapter.TaskInformationAdapter;
 import com.example.dothis.dothis.BaseClases.TaskInformations;
 import com.example.dothis.dothis.db.TaskContract;
 import com.example.dothis.dothis.db.TaskDbHelper;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,9 +68,16 @@ public class MainActivity extends AppCompatActivity {
                 final EditText taskEditText = new EditText(this);
                 final TextView chooseDate = new TextView(this);
                 chooseDate.setText("Set due date:");
+
+                //final Text setNumberPoints = new Text(this);
+                chooseDate.setText("Select how many points does this task requires: ");
+
                 final TextView emptyRow = new TextView(this);
                 emptyRow.setText("");
                 final DatePicker datePicker = new DatePicker(this);
+                final NumberPicker numberPicker = new NumberPicker(this);
+                numberPicker.setMinValue(1);
+                numberPicker.setMaxValue(100);
 
                 LinearLayout layout = new LinearLayout(this);
                 layout.setOrientation(LinearLayout.VERTICAL);
@@ -76,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
                 layout.addView(emptyRow);
                 layout.addView(chooseDate);
                 layout.addView(datePicker);
+                layout.addView(numberPicker);
 
                 AlertDialog dialog = new AlertDialog.Builder(this)
                         .setTitle("Add a new task")
